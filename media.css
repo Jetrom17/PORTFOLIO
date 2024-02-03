@@ -1,0 +1,9 @@
+@media (min-width: 576px) and (max-width: 767px),
+       (min-width: 768px) and (max-width: 991px),
+       (min-width: 992px) and (max-width: 1199px),
+       (min-width: 1200px) and (max-width: 1399px),
+       (min-width: 1400px) and (max-width: 1919px),
+       (min-width: 1920px) and (max-width: 4095px),
+       (min-width: 4096px) {
+    /* Estilos para diferentes intervalos de largura de tela, incluindo até 4K */
+}
