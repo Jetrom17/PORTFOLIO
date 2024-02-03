@@ -1,7 +1,7 @@
 /* Estilos padrão */
 body {
   font-family: 'Arial', sans-serif;
-  background: green; /* Mantenha ou substitua pela classe Bootstrap */
+  background: green;
   padding: 1rem;
   font-size: 1.0rem;
 }
@@ -24,15 +24,15 @@ header {
 }
 
 section {
-  margin: 2rem auto; /* Ajuste a margem e a largura conforme necessário */
+  margin: 1rem;
 }
 
-.project {
-  margin-bottom: 2rem;
+.projects {
+  margin-bottom: 1rem;
 }
 
 img {
-  max-width: 50%; /* Usar 100% para ocupar a largura do contêiner pai */
+  max-width: 50%;
   height: 50%;
   border-radius: 10px;
   padding: 0.20rem;
@@ -45,7 +45,7 @@ a {
   margin-top: 0.1rem;
   display: inline-block;
 }
-
+/* Efeito blur */
 .spoiler {
   cursor: pointer;
   color: white;
@@ -66,27 +66,21 @@ a {
     opacity: 1;
   }
 }
-.alert {
-  padding: 20px;
-  background-color: red;
-  color: white;
-}
-
+/* Aviso */
 .closebtn {
-  margin-left: 15px;
+  margin-left: 5px;
   color: white;
   font-weight: bold;
   float: right;
   font-size: 22px;
-  line-height: 20px;
+  line-height: auto;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 1.0s;
 }
 
 .closebtn:hover {
   color: black;
 }
-/* Aviso */
 .w3-panel.w3-blue {
   display: none;
   position: fixed;
