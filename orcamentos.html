@@ -14,7 +14,9 @@
 
         .container {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            justify-content: center;
         }
 
         .card {
@@ -22,6 +24,7 @@
             border-radius: 8px;
             padding: 20px;
             text-align: center;
+            flex: 1 1 300px; /* Adicionado para controlar a largura dos cards */
         }
 
         .button {
@@ -32,22 +35,132 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: auto;
+            height: auto;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 80%; /* Ajusta a largura dos cards em telas menores */
+            }
+
+            .modal-content {
+                width: 90%; /* Ajusta a largura do modal em telas menores */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <p>Conteúdo do Card 1</p>
-            <button class="button">Botão 1</button>
+        <div class="card" id="card1">
+            <p>Robô para Telegram</p>
+            <li>Acionamento por comandos via barra "/".</li>
+            <li>Reconhecimento por palavras-chaves.</li>
+            <p>R$ 50</p>
+            <button class="button" onclick="openModal('Card 1')">Comprar</button>
         </div>
-        <div class="card">
-            <p>Conteúdo do Card 2</p>
-            <button class="button">Botão 2</button>
+        <div class="card" id="card2">
+            <p>Instalação de Sistema Operacional</p>
+            <li>Windows 10.</li>
+            <li>Linux (Debian/Ubuntu/Opensuse)</li>
+            <p>R$ 50</p>
+            <button class="button" onclick="openModal('Card 2')">Comprar</button>
         </div>
-        <div class="card">
-            <p>Conteúdo do Card 3</p>
-            <button class="button">Botão 3</button>
+        <div class="card" id="card3">
+            <p>Instalação de softwares</p>
+            <p>R$ 20 (cada)</p>
+            <button class="button" onclick="openModal('Card 3')">Comprar</button>
         </div>
     </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Por favor, insira suas informações de contato:</p>
+            <input type="text" id="name" placeholder="Nome"><br><br>
+            <input type="text" id="email" placeholder="E-mail"><br><br>
+            <input type="text" id="phone" placeholder="Telefone"><br><br>
+            <button class="button" onclick="sendWebhook()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(cardName) {
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        function sendWebhook() {
+            const webhookURL = 'https://discord.com/api/webhooks/1214556295596871681/UGN8OBbPluef97oI6YgQhKjmQGs2SJeskdUlWrvWCzi2QE2UBm3n0AZiTBF9LnAY2WOG';
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const data = {
+                content: `Informações do cliente:
+Nome: ${name}
+E-mail: ${email}
+Telefone: ${phone}`
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao enviar o webhook');
+                }
+                console.log('Webhook enviado com sucesso');
+                closeModal();
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    </script>
 </body>
 </html>
