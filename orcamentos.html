@@ -94,19 +94,19 @@
             <li>Acionamento por comandos via barra "/".</li>
             <li>Reconhecimento por palavras-chaves.</li>
             <p>R$ 50</p>
-            <button class="button" onclick="openModal('Card 1')">Comprar</button>
+            <button class="button" onclick="openModal('Bot Telegram')">Comprar</button>
         </div>
         <div class="card" id="card2">
             <p>Instalação de Sistema Operacional</p>
             <li>Windows 10.</li>
             <li>Linux (Debian/Ubuntu/Opensuse)</li>
             <p>R$ 50</p>
-            <button class="button" onclick="openModal('Card 2')">Comprar</button>
+            <button class="button" onclick="openModal('Sistema Operacional')">Comprar</button>
         </div>
         <div class="card" id="card3">
             <p>Instalação de softwares</p>
             <p>R$ 20 (cada)</p>
-            <button class="button" onclick="openModal('Card 3')">Comprar</button>
+            <button class="button" onclick="openModal('Softwares')">Comprar</button>
         </div>
     </div>
 
@@ -117,6 +117,7 @@
             <input type="text" id="name" placeholder="Nome"><br><br>
             <input type="text" id="email" placeholder="E-mail"><br><br>
             <input type="text" id="phone" placeholder="Telefone"><br><br>
+            <input type="hidden" id="cardName"> <!-- Adicionado um campo oculto para armazenar o nome do card -->
             <button class="button" onclick="sendWebhook()">Enviar</button>
         </div>
     </div>
@@ -124,6 +125,7 @@
     <script>
         function openModal(cardName) {
             document.getElementById('myModal').style.display = 'block';
+            document.getElementById('cardName').value = cardName; // Armazena o nome do card no campo oculto
         }
 
         function closeModal() {
@@ -135,12 +137,14 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
+            const cardName = document.getElementById('cardName').value; // Obtém o nome do card do campo oculto
 
             const data = {
                 content: `Informações do cliente:
 Nome: ${name}
 E-mail: ${email}
-Telefone: ${phone}`
+Telefone: ${phone}
+ID do Card: ${cardName}`
             };
 
             fetch(webhookURL, {
